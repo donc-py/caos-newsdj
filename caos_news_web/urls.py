@@ -16,15 +16,17 @@ Including another URLconf
 
 from django.urls import path
 from . import views
-from .views import RegisterAPI
+from .views import RegisterAPI, NewsRegisterAPI
 
 urlpatterns = [
     path('', views.home, name="home"),
     path('contacto', views.home, name='contacto'),
     path('ingreso', views.ingreso, name='ingreso'),
+    path('news', views.news, name='news'),
     path('casotomas', views.casotomas, name='casotomas'),
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),
     path('api/registerapi/', RegisterAPI.as_view(), name='registerapi'),
+    path('api/newsregisterapi/', NewsRegisterAPI.as_view(), name='newsregisterapi'),
 
 
 

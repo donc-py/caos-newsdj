@@ -1,0 +1,152 @@
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.83.1">
+    <title>CAOS NEWS  | CONTACTO</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
+   <!-- Custom styles for this template -->
+   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet">
+<link href="{% static 'assets/css/carousel.css'%}" rel="stylesheet">
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet">
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="{% static 'assets/img/favicons/apple-touch-icon.png'%}" sizes="180x180">
+<link rel="icon" href="{% static 'assets/img/favicons/favicon-32x32.png'%}" sizes="32x32" type="image/png">
+<link rel="icon" href="{% static 'assets/img/favicons/favicon-16x16.png'%}" sizes="16x16" type="image/png">
+<link rel="manifest" href="{% static 'assets/img/favicons/manifest.json'%}">
+<link rel="mask-icon" href="{% static 'assets/img/favicons/safari-pinned-tab.svg'%}" color="#7952b3">
+<link rel="icon" href="{% static 'assets/img/favicons/favicon.ico'%}">
+<meta name="theme-color" content="#7952b3">
+
+
+<body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+
+          <div class="col-12 text-center">
+            <a class="blog-header-logo text-dark" href="index.html">Caos news</a>
+          </div>
+
+        </div>
+      </header>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+        <img src="{% static 'assets/img/ico.png'%}" width="120">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Noticias
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#"><small class="text-muted">Categoria</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'casotomas'%}">Nacional</a>
+                <a class="dropdown-item" href="{% url 'vacunarusa'%}">Internacional</a>
+                <a class="dropdown-item" href="#"><small class="text-muted">Periodistas</small></a>
+                <a class="dropdown-item" href="afptercer10.html">Mauricio bustamente</a>
+                <a class="dropdown-item" href="{% url 'casotomas'%}">Santiago p.</a>
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contacto'%}">Contacto</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+        </div>
+      </nav>
+
+<div class="container">
+  <h2 class="text-center mt-3" style="text-align: center;">Ingresar</h2>
+<div class="row">
+  
+
+<form style="width:40%; margin: auto; margin-top:100px;" action="{% url 'news' %}" method="post">
+    {% csrf_token %}
+    {{ form2 }}
+    <input type="submit" value="Login" />
+</form>
+
+<script>
+
+  const btn = document.querySelector('.ingres')
+
+  const d = document;
+
+  btn.addEventListener('click',(e)=>{
+    if(d.querySelector('.email').value=="" || d.querySelector('.pass').value==""){
+
+alert('Ingresa todos los datos')
+}else{
+
+  if(d.querySelector('.email').value=="admin@test.com" && d.querySelector('.pass').value=="123"){
+
+window.location.href='admin.html'
+  }
+  if(d.querySelector('.email').value=="mauricio@test.com" && d.querySelector('.pass').value=="123"){
+
+window.location.href='periodista.html'
+  }
+}
+
+  })
+
+
+
+
+</script>
+</div>
+</div>
+    <footer class="blog-footer">
+      <p>Caos news 2021 <a href="https://getbootstrap.com/">hecho por</a> caosnews <a href="#"></a>.</p>
+      <p>
+        <a href="#">Ir al principio</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static "assets/js/vendor/jquery-slim.min.js"%}"><\/script>')</script>
+    <script src="{% static 'assets/js/vendor/popper.min.js'%}"></script>
+    <script src="{% static 'dist/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'assets/js/vendor/holder.min.js'%}"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+  <script src="{% static 'assets/js/jquery.min.js'%}"></script>
+  <script src="{% static 'assets/js/popper.min.js'%}"></script>
+  <script src="{% static 'assets/js/bootstrap.min.js'%}"></script>
+</html>
