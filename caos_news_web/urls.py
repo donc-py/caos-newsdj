@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path
 from . import views
-from .views import RegisterAPI, NewsRegisterAPI
+from .views import RegisterAPI, NewsRegisterAPI, LoginAPI
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -29,7 +29,7 @@ urlpatterns = [
     path('casotomas', views.casotomas, name='casotomas'),
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),
     path('api/registerapi/', RegisterAPI.as_view(), name='registerapi'),
-    path('api/loginapi/', RegisterAPI.as_view(), name='loginapi'),
+    path('api/loginapi/', LoginAPI.as_view(), name='loginapi'),
     path('api/newsregisterapi/', NewsRegisterAPI.as_view(), name='newsregisterapi'),
 
 
