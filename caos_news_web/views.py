@@ -3,7 +3,7 @@ from. forms import LoginForm, NewsForm, RegisterForm
 import requests
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
-
+from django.contrib import messages
 from rest_framework import permissions
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
@@ -89,6 +89,7 @@ def registro(request):
             post_data = {'username':form.cleaned_data['Usuario'],'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
             response = requests.post('http://127.0.0.1:8000/api/registerapi/', data=post_data)
             print(response.text)
+            messages.success(request, "Usuario registrado satisfactoriamente")
             return render(request, 'registro.html', {})
     
     else:
@@ -111,6 +112,11 @@ def news(request):
         form = NewsForm()   
     context = {'form2': form}
     return render(request, 'news.html', context)
+def logoutv(request):
+
+    response = requests.post('http://127.0.0.1:8000/api/logout/')
+    print(response.text)
+    return render(request, 'ingreso.html')
 
 def vacunarusa(request):
     return render(request, 'vacunarusa.html', {})

@@ -73,7 +73,18 @@
                 <a class="nav-link" href="{% url 'contacto'%}">Contacto</a>
               </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
+              {% if request.user.is_authenticated %}
+
+              {{ request.user }}
+				<li><a href="{% url 'logoutv' %}">
+          Logout
+          {% csrf_token %}
+        </a></li>
+				{% else %}
+				<li><a href="{% url 'register' %}">Register</a></li>
+				<a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
+				{% endif %}
+              
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">

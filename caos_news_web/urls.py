@@ -17,19 +17,21 @@ Including another URLconf
 from django.urls import path
 from . import views
 from .views import RegisterAPI, NewsRegisterAPI, LoginAPI
-
+from knox import views as knox_views
 urlpatterns = [
     path('', views.home, name="home"),
     path('contacto', views.contacto, name='contacto'),
     path('afptercer10', views.afptercer10, name='afptercer10'),
     path('periodista', views.periodista, name='periodista'),
     path('ingreso', views.ingreso, name='ingreso'),
+    path('logoutv', views.logoutv, name='logoutv'),
     path('registro', views.registro, name='registro'),
     path('news', views.news, name='news'),
     path('casotomas', views.casotomas, name='casotomas'),
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),
     path('api/registerapi/', RegisterAPI.as_view(), name='registerapi'),
     path('api/loginapi/', LoginAPI.as_view(), name='loginapi'),
+    path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
     path('api/newsregisterapi/', NewsRegisterAPI.as_view(), name='newsregisterapi'),
 
 
