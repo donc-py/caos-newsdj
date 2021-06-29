@@ -46,11 +46,14 @@ def contacto(request):
 def ingreso(request):
 
     if request.method == 'POST':
+        #username = request.POST.get('username', '')
+        #password = request.POST.get('password', '')
+        #print(request.POST)
         form = LoginForm(request.POST)
         if form.is_valid():
-            post_data = {'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
+            post_data = {'username':'usernsssss','email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
             response = requests.post('http://127.0.0.1:8000/api/registerapi/', data=post_data)
-            print(response.json)
+            print(response.text)
             return render(request, 'home.html', {})
     
     else:
