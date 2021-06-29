@@ -2,8 +2,14 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class New(models.Model):
-    title = models.CharField(max_length=150 ,primary_key=True)
-    descripcion = models.TextField()
+    nombre = models.CharField(max_length=150 ,primary_key=True)
+    noticia = models.TextField(default='email')
+    email = models.CharField(max_length=50,default='email')
+    documento = models.CharField(max_length=50,default='documento')
+    rut = models.CharField(max_length=50,default='rut')
+    telefono = models.CharField(max_length=50,default='telefono')
+    ciudad = models.CharField(max_length=50,default='ciudad')
+
 
 class User(AbstractUser):
     

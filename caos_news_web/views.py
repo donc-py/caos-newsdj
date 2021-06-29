@@ -87,7 +87,7 @@ def news(request):
     if request.method == 'POST':
         form = NewsForm(request.POST)
         if form.is_valid():
-            post_data = {'title': form.cleaned_data['Titulo'], 'descripcion': form.cleaned_data['Descripcion']}
+            post_data = {'nombre': form.cleaned_data['nombre'], 'noticia': form.cleaned_data['noticia'], 'email': form.cleaned_data['email'], 'documento': form.cleaned_data['documento'], 'rut': form.cleaned_data['pasaporte'], 'telefono': form.cleaned_data['telefono'], 'ciudad': form.cleaned_data['ciudad']}
             response = requests.post('http://127.0.0.1:8000/api/newsregisterapi/', data=post_data)
             print(response.json)
             return render(request, 'home.html', {})
