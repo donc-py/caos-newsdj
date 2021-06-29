@@ -13,6 +13,7 @@ from knox.models import AuthToken
 from django.contrib.auth import login, logout, authenticate
 from .serializers import UserSerializer, RegisterSerializer, NewsSerializer, UserSerializer2
 from rest_framework import status
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 # API
@@ -98,14 +99,21 @@ def ingreso(request):
         if form.is_valid():
             
             post_data = {'username': form.cleaned_data['Correo'],'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
-            response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
-            print(response.json())
-            request.user = response.json()['user']
+            user = authenticate(email=form.cleaned_data['Correo'], password=form.cleaned_data['Clave'])
+            if user is not None:
+              if user.is_active:
+                  login(request, user)
+                  # Redirect to index page.
+                  return HttpResponseRedirect("/")
             
+            #response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
+            #print(response.json())
+            #request.session['user'] = response.json()['user']          
             #login(request, response)
             #login(request, user)
-            print(request.user)
-            return render(request, 'home.html', {'user': response.json()['user']})
+            #print(request.user)
+            #return HttpResponseRedirect("/")
+            #return render(request, 'home.html', {'user': response.json()['user']})
     
     else:
         form = LoginForm()   
@@ -150,8 +158,7 @@ def logoutv(request):
     if request.method == 'POST':
 
 
-        response = requests.post('http://127.0.0.1:8000/api/logout/')
-        print(response.text)
+        res = logout(request)
         return render(request, 'ingreso.html')
 
 def vacunarusa(request):
