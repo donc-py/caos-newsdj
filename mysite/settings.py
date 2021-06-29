@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
 ]
-
+AUTH_USER_MODEL = 'caos_news_web.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',

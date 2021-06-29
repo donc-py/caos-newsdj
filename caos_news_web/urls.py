@@ -20,8 +20,11 @@ from .views import RegisterAPI, NewsRegisterAPI
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('contacto', views.home, name='contacto'),
+    path('contacto', views.contacto, name='contacto'),
+    path('afptercer10', views.afptercer10, name='afptercer10'),
+    path('periodista', views.periodista, name='periodista'),
     path('ingreso', views.ingreso, name='ingreso'),
+    path('registro', views.registro, name='registro'),
     path('news', views.news, name='news'),
     path('casotomas', views.casotomas, name='casotomas'),
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),

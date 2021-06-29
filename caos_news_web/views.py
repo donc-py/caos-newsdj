@@ -36,6 +36,10 @@ class NewsRegisterAPI(generics.GenericAPIView):
 
 def home(request):
     return render(request, 'home.html', {})
+def afptercer10(request):
+    return render(request, 'afptercer10.html', {})
+def periodista(request):
+    return render(request, 'periodista.html', {})
 
 def casotomas(request):
     return render(request, 'casotomas.html', {})
@@ -60,6 +64,24 @@ def ingreso(request):
         form = LoginForm()   
     context = {'form': form}
     return render(request, 'ingreso.html', context)
+
+def registro(request):
+
+    if request.method == 'POST':
+        #username = request.POST.get('username', '')
+        #password = request.POST.get('password', '')
+        #print(request.POST)
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            post_data = {'username':'usernsssss','email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
+            response = requests.post('http://127.0.0.1:8000/api/registerapi/', data=post_data)
+            print(response.text)
+            return render(request, 'registro.html', {})
+    
+    else:
+        form = LoginForm()   
+    context = {'form': form}
+    return render(request, 'registro.html', context)
 def news(request):
 
     if request.method == 'POST':
