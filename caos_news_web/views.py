@@ -13,7 +13,8 @@ from knox.models import AuthToken
 from django.contrib.auth import login, logout, authenticate
 from .serializers import UserSerializer, RegisterSerializer, NewsSerializer, UserSerializer2
 from rest_framework import status
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # API
@@ -80,6 +81,7 @@ def home(request):
     return render(request, 'home.html', {'user':{}})
 def afptercer10(request):
     return render(request, 'afptercer10.html', {})
+@login_required    
 def periodista(request):
     return render(request, 'periodista.html', {})
 
@@ -104,7 +106,7 @@ def ingreso(request):
               if user.is_active:
                   login(request, user)
                   # Redirect to index page.
-                  return HttpResponseRedirect("/")
+                  return HttpResponseRedirect("/periodista")
             
             #response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
             #print(response.json())
@@ -138,7 +140,10 @@ def registro(request):
         form = RegisterForm()   
     context = {'form': form}
     return render(request, 'registro.html', context)
+    
+@login_required
 def news(request):
+    
 
     if request.method == 'POST':
         print(request.POST)
@@ -154,6 +159,7 @@ def news(request):
         form = NewsForm()   
     context = {'form2': form}
     return render(request, 'news.html', context)
+@login_required    
 def logoutv(request):
     if request.method == 'POST':
 
