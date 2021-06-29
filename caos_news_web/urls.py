@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path
 from . import views
-from .views import RegisterAPI, NewsRegisterAPI, LoginAPI
+from .views import RegisterAPI, NewsRegisterAPI, LoginAPI,LogoutView
 from knox import views as knox_views
 urlpatterns = [
     path('', views.home, name="home"),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),
     path('api/registerapi/', RegisterAPI.as_view(), name='registerapi'),
     path('api/loginapi/', LoginAPI.as_view(), name='loginapi'),
-    path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
+    path('api/logout/', LogoutView.as_view(), name='auth_logout'),
     path('api/newsregisterapi/', NewsRegisterAPI.as_view(), name='newsregisterapi'),
 
 

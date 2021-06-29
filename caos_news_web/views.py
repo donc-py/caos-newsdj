@@ -10,11 +10,26 @@ from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from .serializers import UserSerializer, RegisterSerializer, NewsSerializer
+from rest_framework import status
 # Create your views here.
 
 # API
+class LogoutView(APIView):
+    def post(self, request):
+        # Borramos de la request la información de sesión
+        res = logout(request)
+        print(res)
+        # Devolvemos la respuesta al cliente
+        return Response(status=status.HTTP_200_OK)
+    def get(self, request):
+        # Borramos de la request la información de sesión
+        res = logout(request)
+        print(res)
+        # Devolvemos la respuesta al cliente
+        return Response(status=status.HTTP_200_OK)
+
 class LoginAPI(KnoxLoginView):
     permission_classes = (permissions.AllowAny,)
 
@@ -22,8 +37,15 @@ class LoginAPI(KnoxLoginView):
         serializer = AuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        login(request, user)
-        return super(LoginAPI, self).post(request, format=None)
+        print(request.data)
+        
+        
+        print(login(request, user))
+        #return super(LoginAPI, self).post(request, format=None)
+        return Response({
+        "user": UserSerializer(user, context=user).data,
+        
+        })
 
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -70,7 +92,7 @@ def ingreso(request):
         if form.is_valid():
             post_data = {'username': form.cleaned_data['Correo'],'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
             response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
-            print(response.text)
+            
             return render(request, 'home.html', {})
     
     else:
@@ -113,10 +135,12 @@ def news(request):
     context = {'form2': form}
     return render(request, 'news.html', context)
 def logoutv(request):
+    if request.method == 'POST':
 
-    response = requests.post('http://127.0.0.1:8000/api/logout/')
-    print(response.text)
-    return render(request, 'ingreso.html')
+
+        response = requests.post('http://127.0.0.1:8000/api/logout/')
+        print(response.text)
+        return render(request, 'ingreso.html')
 
 def vacunarusa(request):
     return render(request, 'vacunarusa.html', {})
