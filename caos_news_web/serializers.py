@@ -22,7 +22,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = New
-        fields = ('nombre', 'noticia', 'email', 'documento', 'rut', 'telefono', 'ciudad')
+        fields = ('nombre', 'noticia', 'email', 'documento', 'pasaporte', 'telefono', 'ciudad')
 
     def create(self, validated_data):
         news = New.objects.create(
@@ -30,7 +30,7 @@ class NewsSerializer(serializers.ModelSerializer):
             noticia=validated_data['noticia'],
             email=validated_data['email'],
             documento=validated_data['documento'],
-            rut=validated_data['rut'],
+            pasaporte=validated_data['pasaporte'],
             telefono=validated_data['telefono'],
             ciudad=validated_data['ciudad'],
         )

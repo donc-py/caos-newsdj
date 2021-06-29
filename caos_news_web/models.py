@@ -6,7 +6,7 @@ class New(models.Model):
     noticia = models.TextField(default='email')
     email = models.CharField(max_length=50,default='email')
     documento = models.CharField(max_length=50,default='documento')
-    rut = models.CharField(max_length=50,default='rut')
+    pasaporte = models.CharField(max_length=50,default='pasaporte')
     telefono = models.CharField(max_length=50,default='telefono')
     ciudad = models.CharField(max_length=50,default='ciudad')
 
