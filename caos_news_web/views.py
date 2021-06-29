@@ -75,8 +75,8 @@ class NewsRegisterAPI(generics.GenericAPIView):
         })
 
 def home(request):
-    print(request.user)
-    return render(request, 'home.html', {})
+    
+    return render(request, 'home.html', {'user':{}})
 def afptercer10(request):
     return render(request, 'afptercer10.html', {})
 def periodista(request):
@@ -105,7 +105,7 @@ def ingreso(request):
             #login(request, response)
             #login(request, user)
             print(request.user)
-            return render(request, 'home.html', {'user': request.user})
+            return render(request, 'home.html', {'user': response.json()['user']})
     
     else:
         form = LoginForm()   

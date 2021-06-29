@@ -73,11 +73,12 @@
                 <a class="nav-link" href="{% url 'contacto'%}">Contacto</a>
               </li>
             <li class="nav-item">
-              {% if request.user.is_authenticated %}
+              
+              {% ifequal user request.user %}
 
               {{ request.user }}
 				<li>
-          <form action="{% url 'auth_logout' %}" method="GET">
+          <form action="{% url 'auth_logout' %}" method="POST">
             <input type="submit" class="btn btn-block btn-info" value="LogOut" />
           
           
@@ -85,7 +86,7 @@
 				{% else %}
 				<li><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
 				<a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
-				{% endif %}
+				{% endifequal %}
               
             </li>
           </ul>
