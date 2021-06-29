@@ -70,9 +70,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contacto'%}">Contacto</a>
                   </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
-                </li>
+                  <li class="nav-item">
+              
+                    {% if request.user.is_authenticated  %}
+      
+                    {{ request.user }}
+              <li>
+                <form action="{% url 'logoutv' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="submit" class="btn btn-block btn-info" value="LogOut" />
+                
+                
+                </form></li>
+              {% else %}
+              <li><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
+              <a class="nav-link" href="{% url 'ingreso'%}">Ingresar ></a>
+              {% endif %}
+                    
+                  </li>
               </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
