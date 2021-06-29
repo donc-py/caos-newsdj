@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from. forms import LoginForm, NewsForm
+from. forms import LoginForm, NewsForm, RegisterForm
 import requests
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
@@ -55,8 +55,8 @@ def ingreso(request):
         #print(request.POST)
         form = LoginForm(request.POST)
         if form.is_valid():
-            post_data = {'username':'usernsssss','email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
-            response = requests.post('http://127.0.0.1:8000/api/registerapi/', data=post_data)
+            post_data = {'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
+            response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
             print(response.text)
             return render(request, 'home.html', {})
     
@@ -71,15 +71,15 @@ def registro(request):
         #username = request.POST.get('username', '')
         #password = request.POST.get('password', '')
         #print(request.POST)
-        form = LoginForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            post_data = {'username':'usernsssss','email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
+            post_data = {'username':form.cleaned_data['Usuario'],'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
             response = requests.post('http://127.0.0.1:8000/api/registerapi/', data=post_data)
             print(response.text)
             return render(request, 'registro.html', {})
     
     else:
-        form = LoginForm()   
+        form = RegisterForm()   
     context = {'form': form}
     return render(request, 'registro.html', context)
 def news(request):

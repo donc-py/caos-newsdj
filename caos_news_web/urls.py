@@ -29,6 +29,7 @@ urlpatterns = [
     path('casotomas', views.casotomas, name='casotomas'),
     path('vacunarusa', views.vacunarusa, name='vacunarusa'),
     path('api/registerapi/', RegisterAPI.as_view(), name='registerapi'),
+    path('api/loginapi/', RegisterAPI.as_view(), name='loginapi'),
     path('api/newsregisterapi/', NewsRegisterAPI.as_view(), name='newsregisterapi'),
 
 
