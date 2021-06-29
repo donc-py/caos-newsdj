@@ -11,7 +11,7 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from django.contrib.auth import login, logout, authenticate
-from .serializers import UserSerializer, RegisterSerializer, NewsSerializer
+from .serializers import UserSerializer, RegisterSerializer, NewsSerializer, UserSerializer2
 from rest_framework import status
 # Create your views here.
 
@@ -30,22 +30,27 @@ class LogoutView(APIView):
         # Devolvemos la respuesta al cliente
         return Response(status=status.HTTP_200_OK)
 
-class LoginAPI(KnoxLoginView):
-    permission_classes = (permissions.AllowAny,)
+class LoginAPI(APIView):
 
-    def post(self, request, format=None):
-        serializer = AuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        print(request.data)
-        
-        
-        print(login(request, user))
-        #return super(LoginAPI, self).post(request, format=None)
-        return Response({
-        "user": UserSerializer(user, context=user).data,
-        
+    def post(self, request):
+        #serializer = AuthTokenSerializer(data=request.data)
+        #serializer.is_valid(raise_exception=True)
+        #user = serializer.validated_data['user']
+
+        user = authenticate(email=request.data['email'], password=request.data['password'])
+
+        print(user)
+        # Si es correcto añadimos a la request la información de sesión
+        if user:
+            login(request, user)
+            
+            return Response({
+        "user":  UserSerializer2(user).data
         })
+
+        # Si no es correcto devolvemos un error en la petición
+        return Response(
+            status=status.HTTP_404_NOT_FOUND)
 
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -70,6 +75,7 @@ class NewsRegisterAPI(generics.GenericAPIView):
         })
 
 def home(request):
+    print(request.user)
     return render(request, 'home.html', {})
 def afptercer10(request):
     return render(request, 'afptercer10.html', {})
@@ -90,10 +96,16 @@ def ingreso(request):
         #print(request.POST)
         form = LoginForm(request.POST)
         if form.is_valid():
+            
             post_data = {'username': form.cleaned_data['Correo'],'email': form.cleaned_data['Correo'], 'password': form.cleaned_data['Clave']}
             response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
+            print(response.json())
+            request.user = response.json()['user']
             
-            return render(request, 'home.html', {})
+            #login(request, response)
+            #login(request, user)
+            print(request.user)
+            return render(request, 'home.html', {'user': request.user})
     
     else:
         form = LoginForm()   
