@@ -163,7 +163,7 @@ def news(request):
         if form.is_valid():
             post_data = {'nombre': form.cleaned_data['nombre'], 'noticia': form.cleaned_data['noticia'], 'email': form.cleaned_data['email'], 'documento': form.cleaned_data['documento'], 'pasaporte': form.cleaned_data['pasaporte'], 'telefono': form.cleaned_data['telefono'], 'ciudad': form.cleaned_data['ciudad']}
             response = requests.post('http://127.0.0.1:8000/api/newsregisterapi/', data=post_data)
-            print(response.json)
+            print(response.json())
             messages.success(request, "Noticia agregada satisfactoriamente, espere por su aprobación")
             #return render(request, 'news.html', {})
             return HttpResponseRedirect("/periodista")
