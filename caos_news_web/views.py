@@ -85,6 +85,10 @@ def afptercer10(request):
 def periodista(request):
     return render(request, 'periodista.html', {})
 
+@login_required    
+def adminv(request):
+    return render(request, 'admin.html', {})
+
 def casotomas(request):
     return render(request, 'casotomas.html', {})
 
