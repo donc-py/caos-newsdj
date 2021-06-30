@@ -1,3 +1,4 @@
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -41,7 +42,7 @@
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-        <img src="assets/img/ico.png" width="120">
+        <img src="{% static 'assets/img/ico.png' %}" width="120">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -111,36 +112,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Santiago pablovic</td>
-        <td>Internacional</td>
-        <td>Protestas en colombia</td>
-        <td>Aprobado</td>
-        <td><button class="btn btn-info">Ver</button>
-          <button class="btn btn-success">Dar baja</button>
-          <button class="btn btn-danger" disabled>Rechazar</button></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Mauricio bustamente</td>
-        <td>Nacional</td>
-        <td>Robo con fuerza en mall arauco</td>
-        <td>En espera</td>
-        <td><button class="btn btn-info">Ver</button>
-          <button class="btn btn-success">Aprobar</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Rechazar</button></td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Mauricio bustamente</td>
-        <td>Nacional</td>
-        <td>Robo con fuerza en mall arauco</td>
-        <td>En espera</td>
-        <td><button class="btn btn-info">Ver</button>
-          <button class="btn btn-success">Aprobar</button>
-          <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Rechazar</button></td>
-      </tr>
+      {% for new in news %}
+    
+    <tr>
+      <th scope="row">{{ new.id }}</th>
+      <td>{{ new.nombre }}</td>
+      <td>{{ new.nombre }}</td>
+      <td>{{ new.noticia }}</td>
+      <td>Aprobado</td>
+      <td><button class="btn btn-info">Ver</button>
+        <button class="btn btn-success">Dar baja</button>
+        <button class="btn btn-danger" disabled>Rechazar</button></td>
+    </tr>
+    {% endfor %}
+      
     </tbody>
   </table>
 </div>

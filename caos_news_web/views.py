@@ -10,6 +10,7 @@ from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
+from .models import New
 from django.contrib.auth import login, logout, authenticate
 from .serializers import UserSerializer, RegisterSerializer, NewsSerializer, UserSerializer2
 from rest_framework import status
@@ -83,11 +84,14 @@ def afptercer10(request):
     return render(request, 'afptercer10.html', {})
 @login_required    
 def periodista(request):
-    return render(request, 'periodista.html', {})
+    queryset = New.objects.all().filter(email=request.user)
+
+    return render(request, 'periodista.html', {'news': queryset})
 
 @login_required    
 def adminv(request):
-    return render(request, 'admin.html', {})
+    queryset = New.objects.all()
+    return render(request, 'admin.html', {'news': queryset})
 
 def casotomas(request):
     return render(request, 'casotomas.html', {})
@@ -160,7 +164,9 @@ def news(request):
             post_data = {'nombre': form.cleaned_data['nombre'], 'noticia': form.cleaned_data['noticia'], 'email': form.cleaned_data['email'], 'documento': form.cleaned_data['documento'], 'pasaporte': form.cleaned_data['pasaporte'], 'telefono': form.cleaned_data['telefono'], 'ciudad': form.cleaned_data['ciudad']}
             response = requests.post('http://127.0.0.1:8000/api/newsregisterapi/', data=post_data)
             print(response.json)
-            return render(request, 'home.html', {})
+            messages.success(request, "Noticia agregada satisfactoriamente, espere por su aprobación")
+            #return render(request, 'news.html', {})
+            return HttpResponseRedirect("/periodista")
     
     else:
         form = NewsForm()   

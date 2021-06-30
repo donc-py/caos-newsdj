@@ -95,7 +95,13 @@
           </form>
         </div>
       </nav>
-
+      {% if messages %}
+      {% for message in messages %}
+      <div class="notification {{ message.tags}}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
 <div class="container">
   <h2 class="text-center mt-3" style="text-align: center;">Mi panel</h2>
 <div class="row">
@@ -112,23 +118,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mauricio bustamente</td>
-        <td>Internacional</td>
-        <td>Protestas en colombia</td>
-        <td>Aprobado</td>
-        <td><button class="btn btn-info mr-2" style="border-radius:50px !important;">OK</button>&nbsp;Sin comentarios</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Mauricio bustamente</td>
-        <td>Nacional</td>
-        <td>Robo con fuerza en mall arauco</td>
-        <td>Rechazada</td>
-        <td><button class="btn btn-danger mr-2" style="border-radius:50px !important;">NO</button>
-          &nbsp;Falta informacion del lugar exacto de los hechos.</td>
-      </tr>
+      {% for new in news %}
+    
+    <tr>
+      <th scope="row">{{ new.nombre }}</th>
+      <td>{{ new.nombre }}</td>
+      <td>{{ new.nombre }}</td>
+      <td>{{ new.noticia }}</td>
+      <td>Aprobado</td>
+      <td><button class="btn btn-info mr-2" style="border-radius:50px !important;">OK</button>&nbsp;Sin comentarios</td>
+    </tr>
+    {% endfor %}
+      
+      
     </tbody>
   </table>
 </div>
