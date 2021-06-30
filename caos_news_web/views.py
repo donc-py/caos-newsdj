@@ -110,7 +110,10 @@ def ingreso(request):
               if user.is_active:
                   login(request, user)
                   # Redirect to index page.
-                  return HttpResponseRedirect("/periodista")
+                  if form.cleaned_data['Correo'] == "admin@gmail.com":
+                    return HttpResponseRedirect("/adminv")
+                  else:
+                    return HttpResponseRedirect("/periodista")  
             
             #response = requests.post('http://127.0.0.1:8000/api/loginapi/', data=post_data)
             #print(response.json())
